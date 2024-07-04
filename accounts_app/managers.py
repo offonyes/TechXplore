@@ -9,7 +9,7 @@ class CustomUserManager(BaseUserManager):
     """
 
     def create_user(
-        self, email, password, first_name, last_name, personal_number, birth_date, **extra_fields
+        self, email, password, first_name, last_name, phone_number, **extra_fields
     ):
         """
         Create and save a user with the given email, password, first_name, last_name, personal_number and birth_date.
@@ -20,18 +20,15 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("First Name must be set"))
         if not last_name:
             raise ValueError(_("Last Name must be set"))
-        if not personal_number:
+        if not phone_number:
             raise ValueError(_("Personal Number must be set"))
-        if not birth_date:
-            raise ValueError(_("Birth Date must be set"))
 
         email = self.normalize_email(email)
         user = self.model(
             email=email,
             first_name=first_name,
             last_name=last_name,
-            personal_number=personal_number,
-            birth_date=birth_date,
+            phone_number=phone_number,
             **extra_fields
         )
         user.set_password(password)
@@ -44,8 +41,7 @@ class CustomUserManager(BaseUserManager):
         password,
         first_name="Super",
         last_name="User",
-        personal_number="00000000",
-        birth_date="1900-01-01",
+        phone_number="000000000",
         **extra_fields
     ):
         """
@@ -61,5 +57,5 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_superuser=True."))
 
         return self.create_user(
-            email, password, first_name, last_name, personal_number, birth_date, **extra_fields
+            email, password, first_name, last_name, phone_number, **extra_fields
         )

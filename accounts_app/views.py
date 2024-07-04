@@ -1,25 +1,17 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+# accounts_app/views.py
 
-from accounts_app.forms import LoginForm, RegisterForm
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework import status
+from accounts_app.serializers import RegisterSerializer
 
 
-def login_register(request):
-    login_form = LoginForm()
-    register_form = RegisterForm()
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
 
-    if request.method == "POST":
-        if "register" in request.POST:
-            text = """
-            <p> Congratulation you have successfully registered.</p>
-            """
-            register_form = RegisterForm(request.POST)
-            if register_form.is_valid():
-                user = register_form.save(commit=False)
-                user.save()
-                return HttpResponse(text)
-    return render(
-        request,
-        "accounts_app/log_reg.html",
-        {"login_form": login_form, "register_form": register_form, "is_active": True},
-    )
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

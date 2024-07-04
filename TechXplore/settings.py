@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # My apps
+    'accounts_app',
+    "tutor_app",
+
+    #
+    'django_admin_listfilter_dropdown',
+    'admin_auto_filters',
+    'debug_toolbar',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'TechXplore.urls'
@@ -54,7 +70,7 @@ ROOT_URLCONF = 'TechXplore.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,6 +106,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -116,8 +135,58 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "/media/"
+
+AUTH_USER_MODEL = "accounts_app.CustomUser"
+
+# SESSION_ENGINE = "django.contrib.sessions.backends.db"
+#
+# SESSION_COOKIE_AGE = 3600
+# CSRF_COOKIE_SECURE = True
+#
+# # Email settings
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = "example.testing.py@gmail.com"
+# EMAIL_HOST_PASSWORD = "mnpv rgrb avux ybnn"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+#
+# PASSWORD_RESET_TIMEOUT = 3600
+#
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 10,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=3),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=10),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Library API',
+    'DESCRIPTION': 'It`s library management API',
+    'VERSION': '0.0.1',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
