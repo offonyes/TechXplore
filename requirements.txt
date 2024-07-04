@@ -1,0 +1,5 @@
+Django==5.0.4
+django_admin_autocomplete_filter==0.7.1
+djangorestframework==3.15.1
+djangorestframework_simplejwt==5.3.1
+drf_spectacular==0.27.2
