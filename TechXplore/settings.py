@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+
+
+DEFAULT_CHARSET = 'utf-8'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +31,7 @@ SECRET_KEY = 'django-insecure-rff1=-jv-zy649ai%k%s%4wh_*ay1tn4(f13k8t4@8sh4w-vzz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['FreeGrand.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -130,22 +134,22 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
-
 AUTH_USER_MODEL = "accounts_app.CustomUser"
 
 # SESSION_ENGINE = "django.contrib.sessions.backends.db"

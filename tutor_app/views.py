@@ -1,5 +1,6 @@
 from rest_framework import viewsets, permissions, filters
 from drf_spectacular.utils import extend_schema
+from rest_framework.pagination import PageNumberPagination
 
 from tutor_app.models import Tutor
 from tutor_app.serializers import TutorSerializer, DetailedTutorSerializer, CreateTutorSerializer
@@ -9,7 +10,6 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExampl
 
 @extend_schema(tags=['Tutor'], description='Retrieve all tutors',
                parameters=[
-                   # OpenApiParameter(name='artist', description='Filter by artist', required=False, type=str),
                    OpenApiParameter(
                        name='search',
                        type=OpenApiTypes.STR,
@@ -18,13 +18,42 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExampl
                        examples=[
                            OpenApiExample(
                                'Example 1',
-                               summary='City1',
-                               value='თბილისი'
+                               summary='',
+                               value=''
                            ),
                            OpenApiExample(
                                'Example 2',
-                               summary='City 2',
+                               summary='ბათუმი',
                                value='ბათუმი'
+                           ),
+
+                       ],
+                   ),
+                   OpenApiParameter(
+                       name='ordering',
+                       type=OpenApiTypes.STR,
+                       location=OpenApiParameter.QUERY,
+                       description='Filter by city',
+                       examples=[
+                           OpenApiExample(
+                               'Example 1',
+                               summary='',
+                               value=''
+                           ),
+                           OpenApiExample(
+                               'Example 2',
+                               summary='subject',
+                               value='subject'
+                           ),
+                            OpenApiExample(
+                               'Example 3',
+                               summary='month_price',
+                               value='month_price'
+                           ),
+                           OpenApiExample(
+                               'Example 4',
+                               summary='average_rating',
+                               value='average_rating'
                            ),
 
                        ],
