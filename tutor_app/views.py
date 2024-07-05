@@ -1,6 +1,6 @@
-from rest_framework import viewsets, permissions, filters
-from drf_spectacular.utils import extend_schema
-from rest_framework.pagination import PageNumberPagination
+from rest_framework import viewsets, permissions, filters, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from tutor_app.models import Tutor
 from tutor_app.serializers import TutorSerializer, DetailedTutorSerializer, CreateTutorSerializer
@@ -45,7 +45,7 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExampl
                                summary='subject',
                                value='subject'
                            ),
-                            OpenApiExample(
+                           OpenApiExample(
                                'Example 3',
                                summary='month_price',
                                value='month_price'
@@ -65,7 +65,7 @@ class TutorViewSet(viewsets.ModelViewSet):
     serializer_class = TutorSerializer
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     ordering = ['id']
-    search_fields = ['subject', 'city',]
+    search_fields = ['subject', 'city', ]
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:
@@ -84,3 +84,16 @@ class TutorViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Tutor.objects.select_related('user')
 
+
+@extend_schema(tags=['City'], description='Retrieve all cities')
+class CityListView(APIView):
+    def get(self, request):
+        cities = Tutor.objects.values_list('city', flat=True).distinct()
+        return Response(cities, status=status.HTTP_200_OK)
+
+
+@extend_schema(tags=['Subject'], description='Retrieve all subjects')
+class SubjectListView(APIView):
+    def get(self, request):
+        subjects = Tutor.objects.values_list('subject', flat=True).distinct()
+        return Response(subjects, status=status.HTTP_200_OK)

@@ -15,9 +15,6 @@ from datetime import timedelta
 import os
 
 
-DEFAULT_CHARSET = 'utf-8'
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -152,21 +149,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "accounts_app.CustomUser"
 
-# SESSION_ENGINE = "django.contrib.sessions.backends.db"
-#
-# SESSION_COOKIE_AGE = 3600
-# CSRF_COOKIE_SECURE = True
-#
-# # Email settings
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = "example.testing.py@gmail.com"
-# EMAIL_HOST_PASSWORD = "mnpv rgrb avux ybnn"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-#
-# PASSWORD_RESET_TIMEOUT = 3600
-#
 INTERNAL_IPS = [
     "127.0.0.1",
 ]

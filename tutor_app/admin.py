@@ -1,6 +1,6 @@
 from django.contrib import admin
-from django.utils.html import format_html
-from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter, ChoiceDropdownFilter
+from django.utils.html import mark_safe
+from django_admin_listfilter_dropdown.filters import DropdownFilter
 
 from tutor_app.models import Tutor, Review
 from tutor_app.filters import TutorFilter, StudentFilter
@@ -28,11 +28,11 @@ class TutorAdmin(admin.ModelAdmin):
     def get_average_rating(self, obj):
         return obj.average_rating
     get_average_rating.short_description = 'Average Rating'
-    # get_average_rating.admin_order_field = 'get_average_rating'
+    get_average_rating.admin_order_field = 'get_average_rating'
 
     def display_photo(self, obj):
         if obj.photo:
-            return format_html('<img src="{}" style="max-height: 150px;"/>', obj.photo.url)
+            return mark_safe('<img src="{}" style="max-height: 150px;"/>'.format(obj.photo.url))
         return "-"
     display_photo.short_description = 'Photo'
 

@@ -67,3 +67,9 @@ class RegisterSerializer(serializers.ModelSerializer):
             Tutor.objects.create(user=user, **tutor_details)
 
         return user
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tutor
+        fields = ['subject']

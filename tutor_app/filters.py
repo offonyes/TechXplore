@@ -1,5 +1,6 @@
 from admin_auto_filters.filters import AutocompleteFilter
 
+
 class StudentFilter(AutocompleteFilter):
     title = 'Student'
     field_name = 'student'
