@@ -6,8 +6,8 @@ This project is a web application for searching and booking tutors. Users can re
 ## Functionality
 - Registration of users with choice of role (student or tutor)
 - Uploading photos of tutors
-- Feedback from students
-- View tutor ratings
+- Rating Tutor from students(In Future)
+- View tutor ratings 
 - Getting a list of available cities for tutors
 
 
