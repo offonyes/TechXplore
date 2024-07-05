@@ -10,6 +10,10 @@ This project is a web application for searching and booking tutors. Users can re
 - View tutor ratings 
 - Getting a list of available cities for tutors
 
+## Requirements
+- Python 3.12+
+- Django 5.0+
+- SQLite3
 
 ## API Endpoints
 The core functionality is accessible via REST API endpoints. To view the detailed API documentation, see the swagger documentation at
