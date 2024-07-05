@@ -45,5 +45,5 @@ py manage.py runserver
 ```
 
 ## Usage
-- Navigate to the admin interface to manage genres, authors, books, reservations, and borrowings.
+- Navigate to the admin interface to manage tutor.
 - Navigate to '/api/schema/swagger-ui/' to see swagger.
