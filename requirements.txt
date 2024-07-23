@@ -1,4 +1,4 @@
-Django==5.0.6
+Django==5.0.7
 django_admin_autocomplete_filter==0.7.1
 django_admin_list_filter_dropdown==1.0.3
 djangorestframework==3.15.2
